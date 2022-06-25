@@ -1,11 +1,12 @@
-package de.quirmbach.jp.service;
+package de.quirmbach.jp.shelf.service;
 
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 
-import de.quirmbach.jp.dto.SolrDto;
+import de.quirmbach.jp.shelf.dto.BookDto;
+import de.quirmbach.jp.shelf.dto.SolrDto;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 @RegisterRestClient
@@ -17,5 +18,5 @@ public interface OpenLibraryService {
 
     @GET
     @Path("books/{edition}.json")
-    Object findBookByEditionKey(String edition);
+    BookDto findBookByEditionKey(String edition);
 }

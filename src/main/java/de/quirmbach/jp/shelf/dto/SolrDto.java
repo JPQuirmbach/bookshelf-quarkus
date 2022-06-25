@@ -1,4 +1,4 @@
-package de.quirmbach.jp.dto;
+package de.quirmbach.jp.shelf.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

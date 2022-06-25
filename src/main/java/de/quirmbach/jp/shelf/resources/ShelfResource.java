@@ -1,10 +1,12 @@
-package de.quirmbach.jp.resources;
+package de.quirmbach.jp.shelf.resources;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
-import de.quirmbach.jp.service.OpenLibraryService;
-import de.quirmbach.jp.dto.SolrDto;
+import de.quirmbach.jp.shelf.dto.BookDto;
+import de.quirmbach.jp.shelf.service.OpenLibraryService;
+import de.quirmbach.jp.shelf.dto.SolrDto;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import io.smallrye.common.annotation.Blocking;
@@ -12,6 +14,7 @@ import io.smallrye.common.annotation.Blocking;
 @Path("/shelf")
 public class ShelfResource {
 
+    @Inject
     @RestClient
     OpenLibraryService openlibraryService;
 
@@ -33,7 +36,7 @@ public class ShelfResource {
     @Path("/isbn/{isbn}")
     @Blocking
     @Produces(MediaType.APPLICATION_JSON)
-    public Object getByIsbn(String isbn) {
+    public BookDto getByIsbn(String isbn) {
         return openlibraryService.findBookByEditionKey(isbn);
     }
 }
