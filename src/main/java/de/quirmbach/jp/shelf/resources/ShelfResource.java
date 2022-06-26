@@ -7,6 +7,7 @@ import javax.ws.rs.core.MediaType;
 import de.quirmbach.jp.shelf.dto.BookDto;
 import de.quirmbach.jp.shelf.service.OpenLibraryService;
 import de.quirmbach.jp.shelf.dto.SolrDto;
+import io.quarkus.cache.CacheResult;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import io.smallrye.common.annotation.Blocking;
@@ -28,6 +29,7 @@ public class ShelfResource {
     @Path("/search")
     @Blocking
     @Produces(MediaType.APPLICATION_JSON)
+    @CacheResult(cacheName = "search-cache")
     public SolrDto findByQuery(@QueryParam("q") String q) {
         return openlibraryService.searchByTitle(q);
     }
@@ -36,6 +38,7 @@ public class ShelfResource {
     @Path("/isbn/{isbn}")
     @Blocking
     @Produces(MediaType.APPLICATION_JSON)
+    @CacheResult(cacheName = "isbn-cache")
     public BookDto getByIsbn(String isbn) {
         return openlibraryService.findBookByEditionKey(isbn);
     }
