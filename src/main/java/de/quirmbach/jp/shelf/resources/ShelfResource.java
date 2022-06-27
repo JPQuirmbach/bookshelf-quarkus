@@ -1,45 +1,44 @@
 package de.quirmbach.jp.shelf.resources;
 
-import javax.inject.Inject;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-
 import de.quirmbach.jp.shelf.dto.BookDto;
-import de.quirmbach.jp.shelf.service.OpenLibraryService;
 import de.quirmbach.jp.shelf.dto.SolrDto;
+import de.quirmbach.jp.shelf.service.ShelfService;
 import io.quarkus.cache.CacheResult;
-import org.eclipse.microprofile.rest.client.inject.RestClient;
 
-import io.smallrye.common.annotation.Blocking;
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
 @Path("/shelf")
 public class ShelfResource {
 
     @Inject
-    @RestClient
-    OpenLibraryService openlibraryService;
-
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello from RESTEasy Reactive";
-    }
+    ShelfService shelfService;
 
     @GET
     @Path("/search")
-    @Blocking
     @Produces(MediaType.APPLICATION_JSON)
     @CacheResult(cacheName = "search-cache")
     public SolrDto findByQuery(@QueryParam("q") String q) {
-        return openlibraryService.searchByTitle(q);
+        return shelfService.searchByTitle(q);
     }
 
     @GET
     @Path("/isbn/{isbn}")
-    @Blocking
     @Produces(MediaType.APPLICATION_JSON)
     @CacheResult(cacheName = "isbn-cache")
     public BookDto getByIsbn(String isbn) {
-        return openlibraryService.findBookByEditionKey(isbn);
+        return shelfService.findBookByEditionKey(isbn);
+    }
+
+    @GET
+    @Path("/cover/{id}")
+    @Produces("image/jpeg")
+    @CacheResult(cacheName = "cover-cache")
+    public byte[] getCover(String id) {
+        return shelfService.getCover(id);
     }
 }

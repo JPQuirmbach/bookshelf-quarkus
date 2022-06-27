@@ -1,4 +1,4 @@
-package de.quirmbach.jp.shelf.service;
+package de.quirmbach.jp.shelf.client;
 
 
 import javax.ws.rs.GET;
@@ -10,7 +10,7 @@ import de.quirmbach.jp.shelf.dto.SolrDto;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 @RegisterRestClient
-public interface OpenLibraryService {
+public interface OpenLibraryClient {
     
     @GET
     @Path("search.json")
