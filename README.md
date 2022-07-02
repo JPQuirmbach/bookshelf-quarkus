@@ -1,5 +1,7 @@
 # bookshelf Project
 
+[![Java CI with Gradle](https://github.com/JPQuirmbach/bookshelf-quarkus/actions/workflows/gradle.yml/badge.svg)](https://github.com/JPQuirmbach/bookshelf-quarkus/actions/workflows/gradle.yml)
+
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
